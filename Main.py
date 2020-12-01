@@ -8,13 +8,11 @@ class Main:
 
     @staticmethod
     def opening():
+        print("")
         print("Welcome to the Birthday Manager")
         print("Type help to see a full list of commands")
         print("© Jcheez")
         print("")
-        print("Below are the people who are currently stored")
-        print("")
-        Main.file.viewNames()
 
     @staticmethod
     def errorMessage(reason):
@@ -34,6 +32,7 @@ class Main:
         3. Gives a confirmation that data has been added.
 
         """
+        print("")
         print("Adding a new person to the manager...")
         name = input("Name of the person: ")
         day = input("Day of Birthdate: ")
@@ -52,12 +51,32 @@ class Main:
             raise ValueError()
 
         print(Main.file.addPerson(name, day, month, year))
+        print("")
 
     @staticmethod
     def help():
-        print("help --> See a full list of commands available")
-        print("add  --> Add a person's birthday to the manager")
-        print("q    --> Quit the application")
+        print("help    --> See a full list of commands available")
+        print("add     --> Add a person's birthday to the manager")
+        print("remove  --> Add a person's birthday to the manager")
+        print("quit    --> Quit the application")
+        print("")
+
+    @staticmethod
+    def removePerson():
+        print("Remove a person from the manager...")
+        name = input("Name of the person: ")
+        if name == "":
+            Main.errorMessage("Reason: Name field cannot be blank.")
+            raise Exception()
+
+        print(Main.file.removePerson(name))
+        print("")
+
+    @staticmethod
+    def viewAllBirthdays():
+        print("Showing all birthdays...")
+        Main.file.viewNames()
+        print("")
 
 
 default = True
@@ -80,7 +99,18 @@ while default:
                 pass
             else:
                 run = False
-    elif command == "q":
+    elif command == "remove":
+        run = True
+        while run:
+            try:
+                Main.removePerson()
+            except:
+                pass
+            else:
+                run = False
+    elif command == "view all":
+        Main.viewAllBirthdays()
+    elif command == "quit":
         default = False
         print("See you again")
     else:

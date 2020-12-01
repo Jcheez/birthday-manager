@@ -21,7 +21,7 @@ class FileController:
             lines = f.readlines()
         with open(self.__fileName, "w") as f:
             for line in lines:
-                if personName not in line.strip("\n"):
+                if personName != self.formatString(line)[0]:
                     f.write(line)
                 elif found:
                     f.write(line)
