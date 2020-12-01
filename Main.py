@@ -13,30 +13,42 @@ class Main:
         print("© Jcheez")
         print("")
         print("Below are the people who are currently stored")
+        print("")
         Main.file.viewNames()
 
     @staticmethod
+    def errorMessage(reason):
+        print("")
+        print("Sudden termination")
+        print(reason)
+        print("Please try again")
+        print("")
+
+    @staticmethod
     def addPerson():
+        """
+        How this method works.
+
+        1. Get the details of the person and birthdate
+        2. Check that name is not blank and birthday are all numbers
+        3. Gives a confirmation that data has been added.
+
+        """
         print("Adding a new person to the manager...")
         name = input("Name of the person: ")
         day = input("Day of Birthdate: ")
         month = input("Month of Birthdate: ")
         year = input("Year of Birthdate: ")
         if name == "":
-            print("Sudden termination")
-            print("Reason: Name field cannot be blank.")
-            print("Please try again")
-            print("")
+            Main.errorMessage("Reason: Name field cannot be blank.")
             raise Exception()
         try:
             day = int(day)
             month = int(month)
             year = int(year)
         except:
-            print("Sudden termination")
-            print("Reason: non numbers entered into day, month or year.")
-            print("Please try again")
-            print("")
+            Main.errorMessage(
+                "Reason: non numbers entered into day, month or year.")
             raise ValueError()
 
         print(Main.file.addPerson(name, day, month, year))
