@@ -22,6 +22,12 @@ class Main:
         day = input("Day of Birthdate: ")
         month = input("Month of Birthdate: ")
         year = input("Year of Birthdate: ")
+        if name == "":
+            print("Sudden termination")
+            print("Reason: Name field cannot be blank.")
+            print("Please try again")
+            print("")
+            raise Exception()
         try:
             day = int(day)
             month = int(month)
@@ -31,7 +37,7 @@ class Main:
             print("Reason: non numbers entered into day, month or year.")
             print("Please try again")
             print("")
-            raise TypeError()
+            raise ValueError()
 
         print(Main.file.addPerson(name, day, month, year))
 
@@ -53,11 +59,15 @@ while default:
 
     if command == "help":
         Main.help()
-    elif command == "b":
-        try:
-            Main.addPerson()
-        except TypeError:
-            Main.addPerson()
+    elif command == "add":
+        run = True
+        while run:
+            try:
+                Main.addPerson()
+            except:
+                pass
+            else:
+                run = False
     elif command == "q":
         default = False
         print("See you again")
