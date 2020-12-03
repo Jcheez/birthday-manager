@@ -51,12 +51,13 @@ class FileController:
             print(person.toString())
             count += 1
 
+        print("")
         print(f"There are {count} birthdays stored")
 
     def filterBirthdays(self, month):
         file = open(self.__fileName, "r")
+        count = 0
         for line in file.readlines():
-            count = 0
             data = self.formatString(line)
             birthday = Birthday(data[1][0], data[1][1], data[1][2])
             if birthday.formatMonth().lower() == month.lower():
