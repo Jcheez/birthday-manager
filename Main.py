@@ -1,6 +1,8 @@
 from FileController import FileController
 from Birthday import Birthday
 from Person import Person
+from datetime import datetime
+import calendar
 
 
 class Main:
@@ -9,6 +11,7 @@ class Main:
     @staticmethod
     def opening():
         print("")
+        print("verson 1.0")
         print("Welcome to the Birthday Manager")
         print("Type help to see a full list of commands")
         print("© Jcheez")
@@ -55,14 +58,17 @@ class Main:
 
     @staticmethod
     def help():
-        print("help    --> See a full list of commands available")
-        print("add     --> Add a person's birthday to the manager")
-        print("remove  --> Add a person's birthday to the manager")
-        print("quit    --> Quit the application")
+        print("help      --> See a full list of commands available")
+        print("add       --> Add a person's birthday to the manager")
+        print("remove    --> Remove a person's birthday from the manager")
+        print("view all  --> View all the birthdays stored in the manager")
+        print("filter    --> View all the birthdays filtered by a particular month")
+        print("quit      --> Quit the application")
         print("")
 
     @staticmethod
     def removePerson():
+        print("")
         print("Remove a person from the manager...")
         name = input("Name of the person: ")
         if name == "":
@@ -74,8 +80,28 @@ class Main:
 
     @staticmethod
     def viewAllBirthdays():
+        print("")
         print("Showing all birthdays...")
         Main.file.viewNames()
+        print("")
+
+    @staticmethod
+    def filterBirthdays():
+        print("")
+        print("Fitering birthdays...")
+        month = input("Month which you will like to filter: ")
+        print("")
+        Main.file.filterBirthdays(month)
+        print("")
+
+    @staticmethod
+    def filterNextMonthBirthdays():
+        print("")
+        print("Fitering next month's birthdays...")
+        month_current = datetime.today().month
+        next_month = 1 if month_current == 12 else month_current + 1
+        print("")
+        Main.file.filterBirthdays(calendar.month_name[next_month])
         print("")
 
 
@@ -110,6 +136,10 @@ while default:
                 run = False
     elif command == "view all":
         Main.viewAllBirthdays()
+    elif command == "filter":
+        Main.filterBirthdays()
+    elif command == "next":
+        Main.filterNextMonthBirthdays()
     elif command == "quit":
         default = False
         print("See you again")

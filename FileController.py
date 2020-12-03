@@ -45,7 +45,23 @@ class FileController:
         count = 0
         file = open(self.__fileName, "r")
         for line in file.readlines():
-            print(self.formatString(line)[0])
+            data = self.formatString(line)
+            birthday = Birthday(data[1][0], data[1][1], data[1][2])
+            person = Person(data[0], birthday)
+            print(person.toString())
             count += 1
 
-        print(f"There are {count} names stored")
+        print(f"There are {count} birthdays stored")
+
+    def filterBirthdays(self, month):
+        file = open(self.__fileName, "r")
+        for line in file.readlines():
+            count = 0
+            data = self.formatString(line)
+            birthday = Birthday(data[1][0], data[1][1], data[1][2])
+            if birthday.formatMonth().lower() == month.lower():
+                person = Person(data[0], birthday)
+                print(person.toString())
+                count += 1
+
+        print(f"There are {count} birthdays in the month of {month}")
